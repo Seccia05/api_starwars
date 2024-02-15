@@ -1,24 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import './index.css';
+import {DarkThemeToggle, Flowbite} from 'flowbite-react';
+import React from "react";
 
-function App() {
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Flowbite>
+          <DarkThemeToggle/>
+          <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">We invest in the world’s potential</h1>
+      </Flowbite>
   );
 }
 
