@@ -1,26 +1,42 @@
 import React, {useState, useEffect} from 'react';
+import {Card} from 'flowbite-react';
 
-function App() {
-    const [data, setData] = useState(null);
+function App(params) {
+    const [character, setCharacter] = useState(null);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchCharacter = async () => {
             try {
-                const response = await fetch("https://api.ipify.org/?format=json");
-                const jsonData = await response.json();
-                setData(jsonData);
+                const response = await fetch(`https://swapi.dev/api/people/${params.n}/`);
+                const data = await response.json();
+                setCharacter(data);
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.error('Errore durante il recupero dei dati del personaggio:', error);
             }
         };
-        fetchData();
-    }, []);
+
+        fetchCharacter();
+    }, [params.n]);
+
+
 
     return (
         <div>
             <br/>
-            <h1 className="text-3xl font-extrabold dark:text-white">Il tuo indirizzo IP: <small
-                className="ms-2 font-semibold text-gray-500 dark:text-gray-400">{data && data.ip}</small></h1>
+            <Card>
+                {character && (
+                    <div>
+                        <h1 className="text-2xl font-bold dark:text-white">{character.name}</h1>
+                        <p className="text-gray-500 dark:text-gray-400">Altezza: {character.height} cm</p>
+                        <p className="text-gray-500 dark:text-gray-400">Peso: {character.mass} kg</p>
+                        <p className="text-gray-500 dark:text-gray-400">Colore Capelli: {character.hair_color}</p>
+                        <p className="text-gray-500 dark:text-gray-400">Colore Pelle: {character.skin_color}</p>
+                        <p className="text-gray-500 dark:text-gray-400">Colori Occhi: {character.eye_color}</p>
+                        <p className="text-gray-500 dark:text-gray-400">Anno Nascita: {character.birth_year}</p>
+                        <p className="text-gray-500 dark:text-gray-400">Sesso: {character.gender}</p>
+                    </div>
+                )}
+            </Card>
         </div>
     );
 }
